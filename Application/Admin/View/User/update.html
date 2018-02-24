@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <title>列表</title>
+    <style>
+    #DataTables_Table_0_wrapper img {
+        height: 100px;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    .inp {
+        width: 100px;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="font-size: 13px;margin: 10px 5px">
+        <form action="<?php echo U('User/adddata')?>" method="post" enctype="multipart/form-data" id='form-product'>
+            <input type='hidden' name='id' value="{$data['id']|encoded}" />
+            <table border="1" width="100%" class="table table-border table-bordered radius  table-hover">
+                <tr>
+                    <th colspan="2" style="text-align: center;">修改{$data['name']}的佣金比例</th>
+                </tr>
+                <tr>
+                    <td>一级比例</td>
+                    <td>
+                        <input type="text" name="one" id="one" value="{$data['one']}" placeholder="请输入一级比例" class="input-text radius size-M" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>二级比例</td>
+                    <td>
+                        <input type="text" name="second" id="second" value="{$data['second']}" placeholder="请输入二级比例" class="input-text radius size-M" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>三级比例</td>
+                    <td>
+                        <input type="text" name="third" id="third" value="{$data['third']}" placeholder="请输入三级比例" class="input-text radius size-M" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center" style="text-align: center;">
+                        <input type="button" value="修改" class="btn btn-primary size-S radius inp submit">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $(".submit").click(function() {
+        var one = $('#one').val();
+        var second = $('#second').val();
+        var third = $('#third').val();
+        if (one == '' || second == '' || third == '') {
+            alert('存在比例为空，请填写');
+            return;
+        }
+        $('#form-product').submit();
+    })
+});
+</script>
+</script>
+
+</html>

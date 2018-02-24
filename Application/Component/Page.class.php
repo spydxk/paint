@@ -1,0 +1,165 @@
+<?php
+	
+	namespace Component;
+
+	class Page {
+		private $total; //数据表中总记录数
+		private $listRows; //每页显示行数
+		private $limit;
+		private $uri;
+		private $pageNum; //页数
+		private $config=array('header'=>"个记录", "prev"=>"上一页", "next"=>"下一页", "first"=>"首 页", "last"=>"尾 页");
+		private $listNum=8;
+		private $rank=1;
+		/*
+		 * $total 
+		 * $listRows
+		 */
+		public function __construct($total, $listRows=10,$rank,$pa=""){
+			$this->rank=$rank;
+			$this->total=$total;
+			// $this->listRows=$listRows;
+			$this->listRows=$_GET['row'.$this->rank] ? (int)$_GET['row'.$this->rank] : $listRows;;
+			$this->uri=$this->getUri($pa);
+			$this->page=!empty($_GET["page".$this->rank]) ? $_GET["page".$this->rank] : 1;
+			$this->pageNum=ceil($this->total/$this->listRows);
+			$this->page = $this->page>$this->pageNum ? $this->pageNum : $this->page;
+			$this->limit=$this->setLimit();
+		}
+
+		private function setLimit(){
+			$start = (($this->page-1)*$this->listRows < 0) ? 0 : ($this->page-1)*$this->listRows;
+			return $start.", {$this->listRows}";
+		}
+
+		private function getUri($pa){
+			$url=$_SERVER["REQUEST_URI"].(strpos($_SERVER["REQUEST_URI"], '?')?'':"?").$pa;
+			$parse=parse_url($url);
+			if(isset($parse["query"])){
+				parse_str($parse['query'],$params);
+				unset($params["page".$this->rank]);
+				unset($params["row".$this->rank]);
+				$url=$parse['path'].'?'.http_build_query($params);
+				
+			}
+
+			return $url;
+		}
+
+		function __get($args){
+			if($args=="limit")
+				return $this->limit;
+			else
+				return null;
+		}
+
+		private function start(){
+			if($this->total==0)
+				return 0;
+			else
+				return ($this->page-1)*$this->listRows+1;
+		}
+
+		private function end(){
+			return min($this->page*$this->listRows,$this->total);
+		}
+
+		private function first(){
+            $html = "";
+			if($this->page==1)
+				$html.='';
+			else
+				$html.="&nbsp;<a href='{$this->uri}&page".$this->rank."=1&row".$this->rank."={$this->listRows}'>{$this->config["first"]}</a>&nbsp;";
+
+			return $html;
+		}
+
+		private function prev(){
+            $html = "";
+			if($this->page==1)
+				$html.='';
+			else
+				$html.="&nbsp;<a href='{$this->uri}&page".$this->rank."=".($this->page-1)."&row".$this->rank."=".$this->listRows."'>{$this->config["prev"]}</a>&nbsp;";
+
+			return $html;
+		}
+
+		private function pageList(){
+			$linkPage="";
+			
+			$inum=floor($this->listNum/2);
+		
+			for($i=$inum; $i>=1; $i--){
+				$page=$this->page-$i;
+
+				if($page<1)
+					continue;
+
+				$linkPage.="&nbsp;<a href='{$this->uri}&page{$this->rank}={$page}&row{$this->rank}={$this->listRows}'>{$page}</a>&nbsp;";
+
+			}
+		
+			$linkPage.= $this->page;
+			
+
+			for($i=1; $i<=$inum; $i++){
+				$page=$this->page+$i;
+				if($page<=$this->pageNum)
+					$linkPage.="&nbsp;<a href='{$this->uri}&page{$this->rank}={$page}&row{$this->rank}={$this->listRows}'>{$page}</a>&nbsp;";
+				else
+					break;
+			}
+
+			return $linkPage;
+		}
+
+		private function next(){
+            $html = "";
+			if($this->page==$this->pageNum)
+				$html.='';
+			else
+				$html.="&nbsp;<a href='{$this->uri}&page{$this->rank}=".($this->page+1)."&row{$this->rank}=".$this->listRows."'>{$this->config["next"]}</a>&nbsp;";
+
+			return $html;
+		}
+
+		private function last(){
+            $html = "";
+			if($this->page==$this->pageNum)
+				$html.='';
+			else
+				$html.="&nbsp;<a href='{$this->uri}&page{$this->rank}=".($this->pageNum)."&row{$this->rank}=".$this->listRows."'>{$this->config["last"]}</a>&nbsp;";
+
+			return $html;
+		}
+
+		private function goPage(){
+			return '&nbsp;<input type="text" onkeydown="javascript:if(event.keyCode==13){var page'.$this->rank.'=(this.value>'.$this->pageNum.')?'.$this->pageNum.':this.value;location=\''.$this->uri.'&page'.$this->rank.'=\'+page'.$this->rank.'+\'\'}" value="'.$this->page.'" style="width:25px"><input type="button" value="GO" onclick="javascript:var page=(this.previousSibling.value>'.$this->pageNum.')?'.$this->pageNum.':this.previousSibling.value;location=\''.$this->uri.'&page'.$this->rank.'=\'+page'.$this->rank.'+\'&row'.$this->rank.'='.$this->listRows.'\'">&nbsp;';
+		}
+
+		private function goLimit(){
+			return '&nbsp;<input type="text" value="'.$this->listRows.'" style="width:25px"><input type="button" value="GO" onclick="javascript:var row'.$this->rank.'=this.previousSibling.value;location=\''.$this->uri.'&page'.$this->rank.'='.$this->page.'&row'.$this->rank.'=\'+row'.$this->rank.'+\'\'">&nbsp;';
+		}
+
+		function fpage($display=array(0,1,2,3,4,5,6,7,8)){
+			$html[]="&nbsp;共有<b>{$this->total}</b>{$this->config["header"]}&nbsp;";
+			$html[]="每页显示<b>".$this->goLimit()."</b>条，本页<b>{$this->start()}-{$this->end()}</b>条&nbsp;";
+			$html[]="<b>{$this->page}/{$this->pageNum}</b>页&nbsp;";
+			
+			$html[]=$this->first();
+			$html[]=$this->prev();
+			$html[]=$this->pageList();
+			$html[]=$this->next();
+			$html[]=$this->last();
+			$html[]=$this->goPage();
+			$fpage='';
+			foreach($display as $index){
+				$fpage.=$html[$index];
+			}
+
+			return $fpage;
+
+		}
+
+	
+	}

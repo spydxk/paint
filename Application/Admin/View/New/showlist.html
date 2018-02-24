@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/icheck/icheck.css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/animate.min.css" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="{$Think.const.HADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>消息列表
+        <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="icon-refresh"></i></a></nav>
+    <form action="{:U('New/showlist')}" method="get">
+        <table class="table table-border table-bordered radius table-hover">
+            <tr style="font-weight: bold;">
+                <div class="text-c" style="line-height: 50px">
+                    <td>日期范围：</td>
+                    <td>
+                        <div class="col-sm-10">
+                            <input placeholder="开始日期" class="laydate-icon form-control layer-date" id="start" name="datemin" value="{$get['datemin']}" style="width: 130px"> -
+                            <input placeholder="结束日期" class="laydate-icon form-control layer-date" id="end" name="datemax" value="{$get['datemax']}" style="width: 130px">
+                        </div>
+                    </td>
+                    <td>
+                                                            <input type="hidden" name="s" value="/New/showlist">
+
+                        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜记录</button>
+                    </td>
+                </div>
+        </table>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+    <a href="{:U('New/addpage')}"><input type="button" name="" class="btn btn-secondary radius" value="添加信息"></a>
+    </span> <span class="r">共有数据：<strong>{$num}</strong> 条</span>
+    </div>
+    <div style="font-size: 13px; margin: 10px 5px;">
+        <table class="table table-border table-bordered table-hover" aria-describedby="DataTables_Table_0_info">
+            <tr style="text-align: center;">
+                <th style="text-align: center;">序号</th>
+                <th style="text-align: center;">消息标题</th>
+                <th style="text-align: center;">消息开始时间</th>
+                <th style="text-align: center;">消息截止时间</th>
+                <th style="text-align: center;">添加时间</th>
+                <th style="text-align: center;" colspan="4">操作</th>
+            </tr>
+            <?php if(!empty($data)):?>
+            <?php foreach($data as $k=>$v):?>
+            <tr>
+                <td style="text-align: center;">{$v['i_num']}</td>
+                <td style="text-align: center;">{$v['tittle']}</td>
+                <td style="text-align: center;">{$v['starttime']|date='Y-m-d h:i:s',###}</td>
+                <td style="text-align: center;">{$v['uptime']|date='Y-m-d h:i:s',###}</td>
+                <td style="text-align: center;">{$v['time']|date='Y-m-d h:i:s',###}</td>
+                <td style="text-align: center;"><a href="{:U('New/showre',array('id'=>encoded($v['id'])))}" class="btn btn-secondary radius" style="color: #fff">查看回复</a></td>
+                <td style="text-align: center;"><a onclick="layer_show('查看消息','{:U('New/showpage',array('id'=>encoded($v['id'])))}','900','')" href="javascript:" class="btn btn-secondary radius" style="color: #fff">查看消息</a></td>
+                <td style="text-align: center;"><a onclick="layer_show('修改消息','{:U('New/addpage',array('id'=>encoded($v['id'])))}','900','')" href="javascript:" class="btn btn-secondary radius" style="color: #fff">修改消息</a></td>
+                <td style="line-height: 30px;text-align: center;"><a href="{:U('New/delpage','id='.encoded($v['id']))}" onclick="return confirm('确定要删除吗？')" class="btn btn-danger radius">删除</a></td>
+            </tr>
+            <?php endforeach?>
+            <?php else:?>
+            <tr>
+                <th colspan="6" style="text-align: center;color: red">暂无文章</th>
+            </tr>
+            <?php endif?>
+                        <?php if(preg_match('/\d/', $page)): ?>
+            <tr>
+                <td align="right" nowrap="true" colspan="99" height="30">
+                    <?php echo $page; ?>
+                </td>
+            </tr>
+            <?php endif; ?>
+        </table>
+    </div>
+</body>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script src="{$Think.const.ADMIN_URL}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.const.ADMIN_URL}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.const.ADMIN_URL}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.const.ADMIN_URL}/js/plugins/layer/laydate/laydate.js"></script>
+<script type="text/javascript">
+var start = {
+    elem: "#start",
+    event: "focus",
+    format: "YYYY/MM/DD",
+    min: "1988-06-16 23:59:59",
+    max: "2099-06-16 23:59:59",
+    istime: false,
+    istoday: false,
+    choose: function(datas) {
+        end.min = datas;
+        end.start = datas
+    }
+};
+var end = {
+    elem: "#end",
+    event: "focus",
+    format: "YYYY/MM/DD",
+    min: "1988-06-16 23:59:59",
+    max: "2099-06-16 23:59:59",
+    istime: false,
+    istoday: false,
+    choose: function(datas) {
+        start.max = datas
+    }
+};
+laydate(start);
+laydate(end);
+</script>
+
+</html>

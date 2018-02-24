@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>金聚云</title>
+    <link href="{$Think.const.ADMIN_CSS_URL}/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/animate.min.css" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{$Think.const.HOME_CSS_URL}/common.css">
+    <script type="text/javascript" href="{$Think.const.HOME_JS_URL}/fontSize.js"></script>
+</head>
+
+<body>
+<div class="head">
+    <div style="position: absolute;">
+        <a href="{:U('Task/gotomyindex')}" style="line-height: 35px;font-size: 14px;margin-left: 22px;color: #fff;float: left;width: 100%;background-color: #139332;border-radius: 6px;font-size: 13px;margin-top: 3px;line-height: 25px;height: 26px; color: #fff;text-align: center;vertical-align: middle;font-family: Microsoft YaHei;width: 62px;">我的账户</a>
+    </div>
+    <a href="{:U('Task/gotomyindex')}"><img src="{$Think.const.HOME_IMG_URL}/07.png" alt="" style="    width: 10px;position: absolute;margin: 6px;"></a>
+    <p style="float: left;width: 100%">
+        {$tittle}
+    </p>
+    <div style="float: right;position: absolute;right: 3px">
+        <a href="{:U('Report/showreport')}"><p style="float: left;
+    width: 100%;
+    background-color: #139332;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 3px;    line-height: 25px;
+    height: 26px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    /* font-weight: bold; */
+    font-family: Microsoft YaHei;
+    width: 62px;">今日汇报</p></a>
+    </div>
+</div>
+<div class="mycenter_con" <?php if(!is_mobile()):?>style='width: 26%;margin: auto;' <?php endif?>>
+<!--<div class="top_nav"></div>-->
+<table class="table table-border table-bordered radius table-hover table_order">
+    <tr style="text-align: center;background-color: #f56269">
+        <th style="border-left: 0px;border-right: 0px;color: #fff;font-size: 14px;font-weight: 500;">序号</th>
+        <th style="border-left: 0px;border-right: 0px;color: #fff;font-size: 14px;font-weight: 500;width: 25%">任务介绍</th>
+        <th style="border-left: 0px;border-right: 0px;color: #fff;font-size: 14px;font-weight: 500;">日期</th>
+        <th style="border-left: 0px;border-right: 0px;color: #fff;font-size: 14px;font-weight: 500;">状态</th>
+    </tr>
+    <?php if(empty($data)):?>
+    <tr>
+        <th style="text-align: center;" colspan="4">暂无任务</th>
+    </tr>
+    <?php else:?>
+    <?php foreach($data as $k=>$v):?>
+    <tr <?php if($k%2!=0):?>style='background-color: #ececec;'<?php endif?>>
+
+        <td style="border-left: 0px;border-right: 0px;text-align: center;">{$v['i_num']}</td>
+        <td style="border-left: 0px;border-right: 0px;"><a href="{:U('Task/showtask',array('task_id'=>encoded($v['task_id'])))}" style="color: #000"><p style="overflow :hidden;text-overflow: ellipsis;height:20px;display: -webkit-box; -webkit-line-clamp: 1;  -webkit-box-orient: vertical; ">{$v['task_intro']}</p></a></td>
+        <td style="border-left: 0px;border-right: 0px;">{$v['task_time']|date='Y-m-d',###}</td>
+        <td style="border-left: 0px;border-right: 0px;">
+            <?php if($v['task_status']==1):?><span>服务中</span>
+            <?php elseif($v['task_status']==2):?><span>已暂停</span>
+            <?php else:?>
+            <span>已结束</span><?php endif?>
+        </td>
+    </tr>
+    <?php endforeach?>
+    <?php endif?>
+</table>
+<div <?php if(!is_mobile()):?>style="text-align: center;width: 26%;margin: auto;"<?php else:?>style='text-align: center;'<?php endif?>>
+    <a href="{:U('Task/gotomyindex')}"
+       style="display: inline-block;width: 70px;height: 25px;line-height: 25px;background-color: #ff0505;color: #fff;text-align: center;border-radius: 4px;margin-bottom: 27px;">返回首页</a>
+</div>
+<div style="height: 35px;width: 100%"></div>
+<div class="bottom_task" <?php if(!is_mobile()):?>style='width: 26%;margin: auto;' <?php endif?>><a href="{:U('Task/addtask')}">添加任务</a></div>
+</body>

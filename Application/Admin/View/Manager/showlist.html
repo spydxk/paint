@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/html5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/respond.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/PIE_IE678.js"></script>
+<![endif]-->
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!--[if IE 7]>
+<link href="__PUBLIC__/Admin/lib/font-awesome/font-awesome-ie7.min.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]--><title>列表</title>
+<style>
+    #DataTables_Table_0_wrapper img{height: 100px;}
+    td{
+      text-align: center;
+    }
+</style>
+</head>
+<body>
+<nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>用户管理
+<a href="{:U('Manager/add')}"><input type="button" class="btn btn-primary radius" value="添加管理员" style="float: right;line-height:1.6em;margin-top:3px;margin-right: 4px"></a>
+<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav>
+
+
+	<div style="font-size: 13px; margin: 10px 5px;">
+	<table class="table table-border table-bordered radius table-hover"  width="100%">
+		<tr style="font-weight: bold;">
+			<th style="line-height: 30px;text-align: center;">序号</th>
+			<th style="line-height: 30px;text-align: center;">管理员名称（即登录账号）</th>
+			<th style="line-height: 30px;text-align: center;">所属角色</th>
+			<th style="line-height: 30px;text-align: center;" colspan="2">操作</th>
+		</tr>
+		<?php nocache?>
+		<?php foreach($data as $v):?>
+			<?php if($v.mg_id == 1):?>
+			<tr>
+				<td style="line-height: 30px;text-align: center;">{$v['i_num']}</td>
+				<td style="line-height: 30px;text-align: center;">{$v.mg_name}</td>
+				<td style="line-height: 30px;text-align: center;color: red">超级管理员</td>
+				<td style="line-height: 30px;text-align: center;"><a href="javascript:;">无</a></td>
+				<td style="line-height: 30px;text-align: center;"><a href="javascript:;">无</a></td>
+			</tr>
+			<?php else:?>
+			<tr>
+				<td style="line-height: 30px;text-align: center;">{$v.i_num}</td>
+				<td style="line-height: 30px;text-align: center;">{$v.mg_name}</td>
+				<td style="line-height: 30px;text-align: center;">
+					{$v.role_name}
+				</td>
+	
+				<td style="line-height: 30px;text-align: center;"><a href="{:U('Manager/update',array('id'=>$v['mg_id'],'role_leve'=>$v['role_leve']))}" class="btn btn-secondary radius">修改</a></td>
+				<td style="line-height: 30px;text-align: center;"><a href="{:U('Manager/delete','id='.$v['mg_id'])}" onclick="return confirm('确定要删除吗？')" class="btn btn-danger radius">删除</a></td>
+			</tr>
+			<?php endif?>
+		<?php endforeach?>
+		<?php endnocache?>
+	</table>
+	</div>
+</body>
+</html>

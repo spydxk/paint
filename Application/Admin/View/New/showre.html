@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/icheck/icheck.css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/animate.min.css" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <link href="{$Think.const.HADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span><a href="{:U('New/showlist')}" style="text-decoration: none;color: #676a6c">消息列表</a> <span class="c-gray en">&gt;</span>回复列表
+        <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="icon-refresh"></i></a></nav>
+    </div>
+    <div style="font-size: 13px; margin: 10px 5px;">
+        <table class="table table-border table-bordered table-hover" aria-describedby="DataTables_Table_0_info">
+            <tr style="text-align: center;">
+                <th style="text-align: center;" colspan="6">标题:<span style="font-size: 16px;color: #07DBE3;font-weight: 100;">{$new['tittle']}</span>的回复</th>
+            </tr>
+            <tr style="text-align: center;">
+                <th style="text-align: center;">序号</th>
+                <th style="text-align: center;">回复人</th>
+                <th style="text-align: center;">回复内容</th>
+                <th style="text-align: center;">回复时间</th>
+                <th style="text-align: center;">操作</th>
+            </tr>
+            <?php if(!empty($data)):?>
+            <?php foreach($data as $k=>$v):?>
+            <tr>
+                <td style="text-align: center;">{$v['i_num']}</td>
+                <td style="text-align: center;">{$v['name']}</td>
+                <td style="text-align: center;">{$v['content']}</td>
+                <td style="text-align: center;">{$v['time']|date='Y-m-d h:i:s',###}</td>
+                <td style="line-height: 30px;text-align: center;"><a href="{:U('New/delnew',array('re_id'=>encoded($v['re_id']),'new_id'=>encoded($new['id'])))}" onclick="return confirm('确定要删除吗？')" class="btn btn-danger radius">删除</a></td>
+            </tr>
+            <?php endforeach?>
+            <?php else:?>
+            <tr>
+                <th colspan="6" style="text-align: center;color: red">暂无回复</th>
+            </tr>
+            <?php endif?>
+        </table>
+    </div>
+</body>
+
+</html>

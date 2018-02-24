@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/icheck/icheck.css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <title>列表</title>
+    <style>
+    #DataTables_Table_0_wrapper img {
+        height: 100px;
+    }
+
+    td {
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>用户列表
+        <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="icon-refresh"></i></a></nav>
+    <form action="{:U('Crad/showlist')}" method="get">
+        <table class="table table-border table-bordered radius table-hover">
+            <tr style="font-weight: bold;">
+                <div class="text-c" style="line-height: 50px">
+                   <!--  <td>日期范围：</td>
+                    <td>
+                        <input type="text" <literal> onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" </literal> id="datemin" class="input-text Wdate" style="width:120px;" value="{$get['datemin']}" name="datemin"> -
+                        <input type="text" <literal> onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" </literal> id="datemax" class="input-text Wdate" style="width:120px;" value="{$get['datemax']}" name="datemax">
+                    </td> -->
+                    <td>用户类别:</td>
+                    <td>
+                        <select class="select" name="category" class="select-box" style="width: 140px;height: 37px">
+                            <option value="0">请选择用户类别</option>
+                            <option value="1" <?php if($get[ 'category']==1):?>selected
+                                <?php endif?>>贵宾会员</option>
+                            <option value="2" <?php if($get[ 'category']==2):?>selected
+                                <?php endif?>>分销会员</option>
+                            <option value="3" <?php if($get[ 'category']==3):?>selected
+                                <?php endif?>>代销会员</option>
+                        </select>
+                    </td>
+                    <td>用户名称:</td>
+                    <td>
+                        <input type="text" class="input-text" style="width:250px" placeholder="请输入用户名称" name="name" value="{$get['name']}">
+                    </td>
+                     <td>用户手机号码:</td>
+                    <td>
+                        <input type="text" class="input-text" style="width:250px" placeholder="请输入用户手机号码" name="iphone" value="{$get['iphone']}">
+                    </td>
+                    <td>
+                                        <input type="hidden" name="s" value="/Crad/showlist">
+                        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜记录</button>
+                    </td>
+                </div>
+        </table>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+    </span> <span class="r">共有数据：<strong>{$num}</strong> 条</span>
+    </div>
+    <div style="font-size: 13px; margin: 10px 5px;">
+        <table class="table table-border table-bordered radius table-hover" width="100%">
+            <tr style="font-weight: bold;">
+                <th style="line-height: 30px;text-align: center;">序号</th>
+                <th style="line-height: 30px;text-align: center;">用户ID</th>
+                <th style="line-height: 30px;text-align: center;">用户名称</th>
+                <th style="line-height: 30px;text-align: center;">用户手机号码</th>
+                <th style="line-height: 30px;text-align: center;">用户分类</th>
+                <th style="line-height: 30px;text-align: center;">积分总额</th>
+                <th style="line-height: 30px;text-align: center;">已兑换积分总额</th>
+                <th style="line-height: 30px;text-align: center;" colspan="2">操作</th>
+            </tr>
+            <?php nocache?>
+            <?php foreach($data as $v):?>
+            <tr style="background-color: #F6F6F6">
+                <td style="line-height: 30px;text-align: center;">{$v['i_num']}</td>
+                <td style="line-height: 30px;text-align: center;">{$v['pid']}</td>
+                <td style="line-height: 30px;text-align: center;">{$v['name']}</td>
+                <td style="line-height: 30px;text-align: center;">{$v['iphone']}</td>
+                <td style="line-height: 30px;text-align: center;"><?php if($v['category']==1):?>贵宾会员<?php elseif($v['category']==2):?>分销会员<?php elseif($v['category']==3):?>代销会员<?php endif?></td>
+                <td style="line-height: 30px;text-align: center;">{$v['credits']}</td>
+                <td style="line-height: 30px;text-align: center;">
+                    <?php if($v['all']==0):?>暂无兑换记录
+                    <?php else:?>{$v['all']}
+                    <?php endif?>
+                </td>
+                <td style="line-height: 30px;text-align: center;">
+                    <a onclick="layer_show('添加交易金额','{:U('Crad/addcrad',array('id'=>encoded($v['id'])))}','','')" href="javascript:" class="btn btn-success radius">添加交易金额</a>
+                </td>
+                <td style="line-height: 30px;text-align: center;">
+                    <a onclick="layer_show('查看兑换记录','{:U('Crad/record',array('id'=>encoded($v['id'])))}','','')" href="javascript:" class="btn btn-secondary radius">查看兑换记录</a>
+                </td>
+            </tr>
+            <?php endforeach?>
+            <?php endnocache?>
+            <?php if(preg_match('/\d/', $page)): ?>
+            <tr>
+                <td align="right" nowrap="true" colspan="99" height="30">
+                    <?php echo $page; ?>
+                </td>
+            </tr>
+            <?php endif; ?>
+        </table>
+    </div>
+</body>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+function ondel() {
+    var controls = document.getElementsByClassName('tid');
+    if ($("#allid").is(':checked') == true) {
+        for (var i = 0; i < controls.length; i++) {
+            controls[i].checked = true; //}
+        }
+    } else {
+        for (var i = 0; i < controls.length; i++) {
+            controls[i].checked = false; //}
+        }
+    }
+}
+</script>
+
+</html>

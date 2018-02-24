@@ -1,0 +1,48 @@
+<include file="Public/head_task"/>
+<div class="mycenter_con" style="height: 100%;<?php if(!is_mobile()):?>width: 26%;margin: auto; <?php endif?>">
+    <div class="task_con" style="height: 100%">
+        <form action="{:U('Task/addtaskdata')}" id="form-product" method="post" >
+            <div class="task_list">
+                <p class="float_l task_title">客户名称</p>
+                <input type="text" id="task_user" class="float_r task_input" placeholder="请输入客户名称" name="task_user">
+            </div>
+            <div class="task_list">
+                <p class="float_l task_title">客户地址</p>
+                <input type="text" id="task_address" class="float_r task_input" placeholder="请输入客户地址" name="task_address">
+            </div>
+            <div class="task_list">
+                <p class="float_l task_title">客户电话</p>
+                <input type="text" id="task_phone" class="float_r task_input" placeholder="请输入客户电话" name="task_phone">
+            </div>
+            <div class="task_list">
+                <p class="float_l task_title">任务介绍</p>
+                <textarea name="task_intro" class="float_r task_text"  id="task_intro" cols="30" rows="10" placeholder="请输入任务介绍"></textarea>
+            </div>
+            <div style="height: 35px;<?php if(!is_mobile()):?>width: 26%;margin: auto;<?php endif?>"></div>
+            <div class="bottom_task task-submit" >提交</div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".task-submit").click(function() {
+            var task_user = $('#task_user').val();
+            var task_address = $('#task_address').val();
+            var task_phone = $('#task_phone').val();
+            var task_intro = $('#task_intro').val();
+            if(task_user==''||task_address==''||task_phone==''||task_intro==''){
+                alert('存在信息不能为空');
+                return ;
+            }
+            console.log(task_user+','+task_address+','+task_phone+','+task_intro);
+            var myreg = /^1[3|5|7|8|][0-9]{8}[0-9]$/;
+            if (!myreg.test(task_phone)) {
+                console.log(task_phone);
+                alert('请输入有效的手机号码！');
+                return ;
+            }
+            $('#form-product').submit();
+        })
+    })
+</script>

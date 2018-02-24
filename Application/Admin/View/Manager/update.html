@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<title>列表</title>
+<style>
+    #DataTables_Table_0_wrapper img{height: 100px;}
+    td{
+      text-align: center;
+    }
+    .inp{
+        width: 100px;
+    }
+</style>
+</head>
+<body>
+<nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span><a href="{:U('Manager/showlist')}">用户管理</a><span class="c-gray en">&gt;</span> 修改管理员信息<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav>
+
+
+        <div style="font-size: 13px;margin: 10px 5px">
+            <form action="<?php echo U('Manager/update')?>" method="post" enctype="multipart/form-data">
+            <input type='hidden' name='mg_id' value='{$mg_id}' />
+            <table border="1" width="100%" class="table table-border table-bordered radius  table-hover">
+                <tr>
+                    <td>管理员名称</td>
+                    <td><input type="text" name="mg_name" value='{$info[0]['mg_name']}' class="input-text radius size-M"/></td>
+                </tr>
+                <tr>
+                    <td>角色</td>
+                    <td>
+                        <select name='mg_role_id' class="select"
+                                <option value='' selected="selected">请选择角色</option>
+                        <?php foreach ($da_ro as $k=>$v):?>
+                            <?php if ($v['role_id'] == $info[0]['mg_role_id']):?>
+                                <option value="{$v['role_id']}" selected="selected">{$v['role_name']}</option>
+                                <?php else:?>
+                                <option value="{$v['role_id']}">{$v['role_name']}</option>
+                            <?php endif?>
+                        <?php endforeach?>                                                    
+                        </select>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>密码</td>
+                    <td><input type="text" name="mg_pwd" value='' placeholder="请输入密码" class="input-text radius size-M"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center" style="text-align: center;">
+                        <input type="submit" value="修改" class="btn btn-primary size-S radius inp">
+                    </td>
+                </tr>  
+            </table>
+            </form>
+        </div>
+    </body>
+</html>

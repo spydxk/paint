@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/icheck/icheck.css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/animate.min.css" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <title>
+        列表
+    </title>
+    <style>
+    #DataTables_Table_0_wrapper img {
+        height: 100px;
+    }
+    
+    td {
+        text-align: center;
+    }
+    
+    .inp {
+        width: 100px;
+    }
+    </style>
+    </meta>
+    </meta>
+    </meta>
+</head>
+
+<body>
+    <div style="font-size: 13px;margin: 10px 5px">
+        <form action="{:U('Task/adddrenewata')}" enctype="multipart/form-data" method="post" id="form-product">
+            <table border="1" class="table table-border table-bordered radius table-hover" width="100%">
+                <input name="report_id" type="hidden" value="{$id}">
+                <input name="renew_id" type="hidden" value="{$renew['renew_id']|encoded}">
+
+                <tr>
+                    <td>
+                        回复内容：
+                    </td>
+                    <!-- 加载编辑器的容器 -->
+                    <td>
+                            <textarea name="renew_intro" id="renew_intro" class="renew_intro" style="resize: none;width: 100%;height: 200px" placeholder="请输入您的回复">{$renew['renew_intro']}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2" style="text-align: center;">
+                        <input class="btn btn-primary size-S radius submit" type="button" value="提交" />
+                    </td>
+                </tr>
+                </input>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>
+<script src="{$Think.const.ADMIN_URL}/js/jquery.min.js?v=2.1.4"></script>
+<!-- 配置文件 -->
+
+<script type="text/javascript">
+$(function() {
+    $(".submit").click(function() {
+        news_add();
+    })
+
+    function news_add() {
+        var renew_intro = $('#renew_intro').val();
+        if (renew_intro == '') {
+            alert('请输入您的回复');
+            return;
+        }
+        $('#form-product').submit();
+    }
+
+});
+</script>
+<script src="{$Think.const.ADMIN_URL}/js/plugins/layer/laydate/laydate.js"></script>
+<script type="text/javascript">
+</script>

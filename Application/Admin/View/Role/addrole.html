@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>添加角色</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<title>列表</title>
+<style>
+    #DataTables_Table_0_wrapper img{height: 100px;}
+    td{
+      text-align: center;
+    }
+</style>
+    </head>
+<style>
+    ul li{
+        list-style: none;
+    }
+</style>
+    <body>
+<nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span><a href="{:U('Role/showlist')}">角色管理</a><span class="c-gray en">&gt;</span>添加角色
+<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav>
+
+        <div style="font-size: 13px;margin: 10px 5px">
+            <form action="<?php echo U('Role/addrole')?>" method="post" enctype="multipart/form-data">
+            <table border="1" width="100%" class="table_a">
+                <tr>
+                    <td>角色名称</td>
+                    <td><input type="text" name="role_name" class="input-text radius size-M"/></td>
+                </tr>
+                <tr>
+                    <td>角色权限</td>
+                    <td> 
+                         <ul>
+                        <?php foreach ($pauth_info as $k=>$v):?>
+                            <li style="margin-top: 15px">
+                                <span style="font-size: 16px; margin-left: 7px;">{$v['auth_name']}</span>
+
+                                 <input type="checkbox" name="authname[]" value="{$v['auth_id']}" class="che{$v['auth_id']} input-checkbox radius size-M" onclick="clicheck({$v['auth_id']})"  />
+
+                                <table style="border: 1px solid gray;padding: 0px; border-collapse: collapse;font-size: 16px"><tr>
+                                <?php foreach ($sauth_info as $kt => $vt):?>
+                                    <?php if ($vt['auth_pid'] == $v['auth_id']):?>
+                                        <td style="border: 1px solid gray;padding: 6px;font-size: 16px;text-align: center;">
+                                            {$vt['auth_name']}
+                                            <input type="checkbox" name="authname[]" value="{$vt['auth_id']}" style="margin-left: 10px" class="che_box{$v['auth_id']} input-checkbox radius size-M" onclick="_onclick({$v['auth_id']})" />
+                                        </td>
+                                    <?php endif ?>
+                                <?php endforeach ?></tr>
+                                </table>
+                            </li>
+                                <?php endforeach ?>
+                    </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center" >
+                        <input type="submit" value="提交" name="sub" class="btn btn-primary radius">
+                    </td>
+                </tr>  
+            </table>
+            </form>
+        </div>  
+    <script>
+function _onclick(id) {
+    var name = 'che' + id;
+    document.getElementsByClassName(name)[0].checked = true;
+}
+
+function clicheck(id) {
+    var name = 'che' + id;
+    var childname='che_box'+id;
+    var obj=document.getElementsByClassName(childname);
+    if (document.getElementsByClassName(name)[0].checked == true) {
+        for (var i=0; i<obj.length;i++) {
+            obj[i].checked=true;
+        }
+    }else{
+        for (var i=0; i<obj.length;i++) {
+            obj[i].checked=false;
+        }
+    }
+}
+    </script>
+</html>

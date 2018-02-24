@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <title>列表</title>
+    <style>
+    #DataTables_Table_0_wrapper img {
+        height: 100px;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    .inp {
+        width: 100px;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="font-size: 13px;margin: 10px 5px">
+        <table border="1" width="100%" class="table table-border table-bordered radius  table-hover">
+            <tr>
+                <th colspan="5" style="text-align: center;">{$data['name']}的积分兑换记录</th>
+            </tr>
+            <tr>
+                <th>序号</th>
+                <th>兑换积分数量</th>
+                <th>提现金额</th>
+                <th>状态</th>
+                <th>兑换时间</th>
+            </tr>
+            <?php if(empty($data['record'])):?>
+                <tr>
+                    <td colspan="5"><p style="text-align: center;color: red">暂无积分兑换记录</p></td>
+                </tr>
+            <?php else:?>
+                <?php foreach($data['record'] as $k=>$v):?>
+                <tr>
+                    <td>{$v['i_num']}</td>
+                    <td>{$v['number']}</td>
+                    <td>{$v['number']}</td>
+                    <td><?php if($v['status']==0):?> <p style="color: red"> 未审核 </p> <?php elseif($v['status']==2):?> <p style="color: red"> 不通过 </p> <?php else:?>已审核通过<?php endif?></td>
+                    <td>{$v['e_time']|date='Y-m-d H:i:s',###}</td>
+                </tr>
+            <?php endforeach?>
+            <?php endif?>
+        </table>
+    </div>
+</body>
+</script>
+
+</html>

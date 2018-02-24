@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<title>列表</title>
+<style>
+    #DataTables_Table_0_wrapper img{height: 100px;}
+    td{
+      text-align: center;
+    }
+</style>
+</head>
+<body>
+<nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>权限管理
+<a href="{:U('Auth/add')}"><input type="button" class="btn btn-primary radius" value="添加权限" style="float: right;line-height:1.6em;margin-top:3px;margin-right: 4px"></a>
+<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav>
+        <div style="font-size: 13px; margin: 10px 5px;">
+        <div style="font-size: 13px; margin: 10px 5px;">
+            <table  border="1" width="100%"  class="table table-border table-bordered radius table-hover" >
+                <tbody><tr style="font-weight: bold;">
+                        <td>序号</td>
+                        <td>权限名称</td>
+                        <td>控制器</td>
+                        <td>操作方法</td>
+                        <td>全路径</td>
+                        <td colspan="2">操作权限</td>
+                    </tr>
+                    <?php foreach ($info as $k => $v):?>
+                    <tr id="product1">
+                        <td>{$v['id']}</td>
+                        <td><a href="#">{$v.auth_name}</a></td>
+                        <td>{$v.auth_c}</td>
+                        <td>{$v.auth_a}</td>
+                        <td>{$v.auth_path}</td>
+                        <td><a href="{:U('Auth/delete','id='.$v['auth_id'])}" onclick="return confirm('确定要删除吗？')">删除</a></td><td><a href="{:U('Auth/modif','id='.$v['auth_id'])}">修改</a></td>
+                    </tr>
+                    <?php endforeach?>
+                    <tr>
+                        <td colspan="20" style="text-align: center;">
+                            {$pagelist}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</body>
+</html>

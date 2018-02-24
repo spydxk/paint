@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/icheck/icheck.css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/animate.min.css" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <style>
+    #DataTables_Table_0_wrapper img {
+        height: 100px;
+    }
+    
+    td {
+        text-align: center;
+    }
+    
+    .inp {
+        width: 100px;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="font-size: 13px;margin: 10px 5px">
+      <p style="text-align: center;font-size: 18px">{$data['tittle']}</p>
+      <p style="text-align: center;font-size: 18px">{$data['uptime']|date='Y-m-d h:i:s',###}</p>
+      <div>
+          {$data['content']|htmlspecialchars_decode}
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <title>列表</title>
+    <style>
+    #DataTables_Table_0_wrapper img {
+        height: 100px;
+    }
+    
+    td {
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span><a href="{:U('Role/showlist')}">角色管理</a><span class="c-gray en">&gt;</span>分配权限
+        <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="icon-refresh"></i></a></nav>
+    <div style="font-size: 13px;margin: 10px 5px">
+        <form action="{$smarty.const.__SELF__}" method="post" enctype="multipart/form-data">
+
+            <div>正在为角色：<span style="font-size:25px; font-weight:bold;">{$role_name}</span>分配权限</div>
+            <ul>
+            <li>
+                 <table class="table table-border table-bordered radius table-hover">
+                        <tr>
+                            <td style="width: 10%">角色名称</td>
+                    <td><input type="text" name="role_name" class="input-text radius" placeholder="请输入角色名称" value="{$role_name}" /></td>
+                        </tr>
+                </table>
+            </li>
+                <?php foreach ($pauth_info as $k=>$v):?>
+                <li style="margin-top: 15px">
+                    <table class="table table-border table-bordered radius table-hover">
+                        <th>
+                            <span style="font-size: 16px; margin-left: 7px;">{$v['auth_name']}</span>
+                            <input type="checkbox" name="authname[]" onclick="clicheck({$v['auth_id']})" value="{$v['auth_id']}" class="che{$v['auth_id']}" <?php if (in_array($v[ 'auth_id'],$arr)):?> checked="checked"
+                            <?php endif?> />
+                        </th>
+                        <tr>
+                            <?php foreach($sauth_info as $kt => $vt):?>
+                            <?php if ($vt['auth_pid'] == $v['auth_id']):?>
+                            <td style="border: 1px solid gray;padding: 6px;font-size: 16px;text-align: center;">
+                                {$vt['auth_name']}
+                                <input type="checkbox" name="authname[]" value="{$vt['auth_id']}" style="margin-left: 10px" class="che_box{$v['auth_id']}" onclick="_onclick({$v['auth_id']})" <?php if (in_array($vt[ 'auth_id'],$arr)):?> checked="checked"
+                                <?php endif ?> />
+                            </td>
+                            <?php endif ?>
+                            <?php endforeach?>
+                        </tr>
+                    </table>
+                </li>
+                <?php endforeach ?>
+            </ul>
+            <div style="text-align: center;">
+                <input type="submit" value="分配权限" class="btn btn-primary radius" style="margin-top:10px" />
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="{$Think.const.HADMIN_URL}/lib/jquery.min.js"></script>
+</body>
+<script  type="text/javascript">
+function _onclick(id) {
+    var name = 'che' + id;
+    document.getElementsByClassName(name)[0].checked = true;
+}
+
+function clicheck(id) {
+    var name = 'che' + id;
+    var childname='che_box'+id;
+    var obj=document.getElementsByClassName(childname);
+    if (document.getElementsByClassName(name)[0].checked == true) {
+        for (var i=0; i<obj.length;i++) {
+            obj[i].checked=true;
+        }
+    }else{
+        for (var i=0; i<obj.length;i++) {
+            obj[i].checked=false;
+        }
+    }
+}
+</script>
+< /html>

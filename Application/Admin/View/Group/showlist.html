@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="{$Think.const.ADMIN_URL}/lib/icheck/icheck.css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <title>列表</title>
+    <style>
+        #DataTables_Table_0_wrapper img{height: 100px;}
+        td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>员工管理
+    <a onclick="layer_show('添加员工','{:U('Group/add')}','','')" href="javascript:" class="btn btn-secondary radius" style="float: right;line-height:1.6em;margin-top:3px;margin-right: 4px">添加员工管理</a>
+    <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav>
+<form action="{:U('Group/showlist')}" method="get">
+    <table class="table table-border table-bordered radius table-hover">
+        <tr style="font-weight: bold;">
+            <div class="text-c" style="line-height: 50px">
+                <td>日期范围：</td>
+                <td>
+                    <input type="text" <literal> onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" </literal> id="datemin" class="input-text Wdate" style="width:120px;" value="{$get['datemin']}" name="datemin"> -
+                    <input type="text" <literal> onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" </literal> id="datemax" class="input-text Wdate" style="width:120px;" value="{$get['datemax']}" name="datemax">
+                </td>
+                <td>用户名称:</td>
+                <td>
+                    <input type="text" class="input-text" style="width:250px" placeholder="请输入用户名称" name="name" value="{$get['name']}">
+                </td>
+                <td>用户手机号码:</td>
+                <td>
+                    <input type="text" class="input-text" style="width:250px" placeholder="请输入用户手机号码" name="iphone" value="{$get['iphone']}">
+                </td>
+                <td>
+                    <input type="hidden" name="m">
+                    <input type="hidden" name="c">
+                    <input type="hidden" name="a">
+                    <input  type="submit" class="btn btn-success" value="搜索" />
+                </td>
+            </div>
+    </table>
+</form>
+
+<div style="font-size: 13px; margin: 10px 5px;">
+    <table class="table table-border table-bordered radius table-hover"  width="100%">
+        <tr style="font-weight: bold;">
+            <th style="line-height: 30px;text-align: center;">序号</th>
+            <th style="line-height: 30px;text-align: center;">员工名称</th>
+            <th style="line-height: 30px;text-align: center;">员工编号</th>
+            <th style="line-height: 30px;text-align: center;">员工手机号码</th>
+            <th style="line-height: 30px;text-align: center;">任务总数量(个)</th>
+            <th style="line-height: 30px;text-align: center;">任务执行中数量（个）</th>
+            <th style="line-height: 30px;text-align: center;">添加时间</th>
+            <th style="line-height: 30px;text-align: center;" colspan="3">操作</th>
+        </tr>
+        <?php nocache?>
+        <?php foreach($data as $v):?>
+        <tr>
+            <td style="line-height: 30px;text-align: center;">{$v.i_num}</td>
+            <td style="line-height: 30px;text-align: center;">{$v.name}</td>
+            <td style="line-height: 30px;text-align: center;">{$v.card}</td>
+            <td style="line-height: 30px;text-align: center;">{$v.iphone}</td>
+            <td style="line-height: 30px;text-align: center;">{$v['taskall']}</td>
+            <td style="line-height: 30px;text-align: center;">{$v['tasking']}</td>
+            <td style="line-height: 30px;text-align: center;">{$v['time']|date='Y-m-d h:i:s',###}</td>
+            <td style="line-height: 30px;text-align: center;"><a href="{:U('Task/showlist',array('id'=>encoded($v['id'])))}" class="btn btn-secondary radius" style="line-height:1.6em;margin-top:3px;margin-right: 4px">查看任务</a></td>
+            <td style="line-height: 30px;text-align: center;"><a href="{:U('Task/showreport',array('id'=>encoded($v['id'])))}" class="btn btn-secondary radius" style="line-height:1.6em;margin-top:3px;margin-right: 4px">查看汇报</a></td>
+
+            <td style="line-height: 30px;text-align: center;"><a onclick="layer_show('修改员工','{:U('Group/add',array('id'=>encoded($v['id'])))}','','')" href="javascript:" class="btn btn-secondary radius" style="line-height:1.6em;margin-top:3px;margin-right: 4px">修改信息</a></td>
+            <td style="line-height: 30px;text-align: center;"><a href="{:U('Group/delman',array('id'=>encoded($v['id'])))}" onclick="return confirm('确定要删除吗？')" class="btn btn-danger radius">删除</a></td>
+        </tr>
+        <?php endforeach?>
+        <?php endnocache?>
+    </table>
+</div>
+</body>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+    var start = {
+        elem: "#start",
+        event: "focus",
+        format: "YYYY/MM/DD",
+        min: "1988-06-16 23:59:59",
+        max: "2099-06-16 23:59:59",
+        istime: false,
+        istoday: false,
+        choose: function(datas) {
+            end.min = datas;
+            end.start = datas
+        }
+    };
+    var end = { elem: "#end", event: "focus", format: "YYYY/MM/DD", min: "1988-06-16 23:59:59", max: "2099-06-16 23:59:59", istime: false, istoday: false, choose: function(datas) { start.max = datas } };
+    laydate(start);
+    laydate(end);
+</script>
+</html>

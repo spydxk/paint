@@ -1,0 +1,35 @@
+<div class="blank_footer">
+</div>
+<div class="pub_footer">
+    <a class="footer_a center" href="{:U('Center/center')}">
+        首页
+    </a>
+    <a class="footer_a paint" href="{:U('Paint/show')}">
+        分销中心
+    </a>
+    <a class="footer_a mycenter" href="{:U('Mycenter/center')}">
+        个人中心
+    </a>
+</div>
+<script src="{$Think.const.ADMIN_JS_URL}/jquery.min.js?v=2.1.4">
+</script>
+<script type="text/javascript">
+$(function() {
+    var str = "{$Think.const.CONTROLLER_NAME}" + "/" + "{$Think.const.ACTION_NAME}";
+    if (str == 'Center/center') {
+        document.getElementsByClassName('center')[0].style = "background-color:#FF0505;color:#fff";
+        document.getElementsByClassName('paint')[0].style = "background-color:#fff";
+        document.getElementsByClassName('mycenter')[0].style = "background-color:#fff";
+    }else if(str == 'Paint/show'){
+        document.getElementsByClassName('paint')[0].style = "background-color:#FF0505;color:#fff";
+        document.getElementsByClassName('center')[0].style = "background-color:#fff";
+        document.getElementsByClassName('mycenter')[0].style = "background-color:#fff";
+    }else if(str == 'Mycenter/center'){
+        document.getElementsByClassName('mycenter')[0].style = "background-color:#FF0505;color:#fff";
+        document.getElementsByClassName('center')[0].style = "background-color:#fff";
+        document.getElementsByClassName('paint')[0].style = "background-color:#fff";
+    }
+})
+</script>
+<body>
+</html>

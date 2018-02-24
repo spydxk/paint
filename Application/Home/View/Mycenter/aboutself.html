@@ -1,0 +1,9 @@
+<include file="Public/head" />
+<div class="mycenter_con" <?php if(!is_mobile()):?>style='width: 26%;margin: auto;' <?php endif?>>
+    <?php if(!empty($data['content'])):?>
+    {$data['content']|htmlspecialchars_decode}
+<?php else:?>
+    <p style="width:100%;text-align: center;height: 50px;line-height: 50px;">暂无内容</p>
+<?php endif?>
+</div>
+<include file="Public/footer" />

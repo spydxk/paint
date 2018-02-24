@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>金聚云</title>
+    <link href="{$Think.const.ADMIN_CSS_URL}/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/animate.min.css" rel="stylesheet">
+        <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- <link rel="stylesheet" type="text/css" href="{$Think.const.HOME_CSS_URL}/common.css"> -->
+</head>
+
+<body >
+<div class="showorder_con">
+    <table class="table table-border table-bordered radius table-hover table_order">
+        <tr>
+            <th style="text-align: center;" colspan="7">销售/送货订单</th>
+        </tr>
+        <tr>
+            <td colspan="5" style="text-align: right;width: 70%;font-size: 11px;border-left: 0px;border-right: 0px;">日期：</td>
+            <td style="border-left: 0px;border-right: 0px;font-size: 7px;" colspan="2">{$order['addtime']}</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;font-size: 7px;" colspan='7' >地址：梅县区剑英大道锦绣国际B6栋203-205　　　电话：0753-2621518　　18923006442</td>
+        </tr>
+        <tr>
+            <td colspan="3" style="font-size: 8px;">客户名称：<span>{$order['gressname']}</span></td>
+            <td colspan="4" rowspan="2" style="font-size: 8px">地址:<span>{$order['order_address']}</span></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="font-size: 8px">联系电话：<span>{$order['order_iphone']}</span></td>
+        </tr>
+        <tr>
+            <td style="font-size: 9px">货品名称</td>
+            <td style="font-size: 9px">规格型号</td>
+            <td style="font-size: 9px">数量</td>
+            <td style="font-size: 9px">单位</td>
+            <td style="font-size: 9px">单价</td>
+            <td style="font-size: 9px">总金额</td>
+            <td style="font-size: 9px">备注</td>
+        </tr>
+        <?php foreach($goods as $k=>$v):?>
+        <tr>
+            <td style="font-size: 7px">{$v['goods_name']}</td>
+            <td style="font-size: 7px">{$v['goods_type']}</td>
+            <td style="font-size: 7px">{$v['goods_num']}</td>
+            <td style="font-size: 7px">{$v['goods_unit']}</td>
+            <td style="font-size: 7px">{$v['goods_price']}</td>
+            <td style="font-size: 7px">{$v['goods_all']}</td>
+            <td style="font-size: 7px">{$v['notes']}</td>
+        </tr>
+        <?php endforeach?>
+        <tr>
+            <td style="text-align: left;font-size: 7px" colspan="7">温馨提示：</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;font-size: 7px" colspan="7">1、本公司承诺销售的保证全为正品</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;font-size: 7px" colspan="7">2、收货前请认真检查货品包装是否完好，数量是否相符，签字确认后即视为对本批次货品无异议。
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: left;font-size: 7px" colspan="7">3、本单据与纸质单据一致，可用作结算依据。          
+
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 7px">开单人：<span>{$order['order_user']}</span></td>
+            <td colspan="3" style="font-size: 7px">送货人：<span>{$order['delivery_user']}</span></td>
+            <td colspan="3" style="font-size: 7px">收货人：<span>{$order['consignee']}</span></td>
+        </tr>
+    </table>
+</div>
+</body>    
+</html>

@@ -1,0 +1,1 @@
+a:7:{i:0;s:5:"re_id";i:1;s:6:"new_id";i:2;s:7:"content";i:3;s:7:"user_id";i:4;s:4:"time";s:3:"_pk";s:5:"re_id";s:5:"_type";a:5:{s:5:"re_id";s:16:"int(11) unsigned";s:6:"new_id";s:7:"int(11)";s:7:"content";s:4:"text";s:7:"user_id";s:7:"int(11)";s:4:"time";s:8:"char(60)";}}

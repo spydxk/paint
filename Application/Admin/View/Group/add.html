@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.admin.css" rel="stylesheet" type="text/css"/>
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css"/>
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css"/>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]--><title>列表</title>
+    <style>
+        #DataTables_Table_0_wrapper img {
+            height: 100px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .inp {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div style="font-size: 13px;margin: 10px 5px">
+    <form action="{:U('Group/adddata')}" method="post"  id="form-product">
+        <table border="1" width="100%" class="table table-border table-bordered radius  table-hover">
+            <tr>
+                <td>员工名称</td>
+                <td>
+                    <input type="hidden" name="id" value="{$info[0]['id']|encoded}">
+                    <input type="text" placeholder="请输入员工名称" name="name" value="{$info[0]['name']}" class="input-text radius size-M" id='name' />
+                </td>
+            </tr>
+            <tr>
+                <td>员工编号（即登录账号）</td>
+                <td>
+                    <input type="text" placeholder="请输入员工编号" name="card" value="{$info[0]['card']}" class="input-text radius size-M" id='card' />
+                </td>
+            </tr>
+            <tr>
+                <td>员工手机号码</td>
+                <td><input type="text" placeholder="请输入员工手机号码" name="iphone" value="{$info[0]['iphone']}" class="input-text radius size-M" id="iphone"/>
+                </td>
+            </tr>
+            <tr>
+                <td>密码设置</td>
+                <td><input placeholder="请输入6-8位数字或字母的密码" type="password" name='password' value="{$info[0]['password']}" class="input-text" id="password"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" style="text-align: center;">
+                    <input type="button" value="添加" class="btn btn-primary size-S radius inp"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+<script src="{$Think.const.ADMIN_URL}/js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".inp").click(function () {
+            var name = $('#name').val();
+            var card = $('#card').val();
+            var iphone = $('#iphone');
+            var password = $('#password').val();
+            if (name == '') {
+                alert('姓名不能为空');
+                exit();
+            }else if (card == '') {
+                alert('编号不能为空');
+                exit();
+            }else if (iphone.value == '') {
+                alert('手机号码不能为空');
+                exit();
+            }
+            var myreg = /^1[3|4|5|7|8|][0-9]{8}[0-9]$/;
+            var pattern = /^[\w-\.]{6,8}$/;
+            if (!myreg.test($("#iphone").val())) {
+                alert('请输入有效的手机号码！');
+                exit();
+            }
+            // if (!pattern.test($("#password").val())) {
+            //     alert('请填写6-8位数字或字母的密码!');
+            //     exit();
+            // }
+            $('#form-product').submit();
+        })
+    })
+</script>
+</html>

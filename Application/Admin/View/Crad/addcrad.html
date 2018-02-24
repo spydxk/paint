@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <title>列表</title>
+    <style>
+    #DataTables_Table_0_wrapper img {
+        height: 100px;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    .inp {
+        width: 100px;
+    }
+    </style>
+</head>
+
+<body>
+    <div style="font-size: 13px;margin: 10px 5px">
+        <form action="{:U('Crad/addcraddata')}" method="post" id="form-product">
+        <input type="text" name="user_id" value="{$user_info['id']|encoded}" style="display: none;">
+            <table border="1" width="100%" class="table table-border table-bordered radius  table-hover">
+                <tr>
+                    <td>添加交易总额：</td>
+                    <td>
+                        <input type="text" placeholder="请输入交易总额" name="money" class="input-text" id="credits" >
+                    </td>
+                </tr>
+                <<!-- tr>
+                    <td>折算积分总额：</td>
+                    <td id="money_con"></td>
+                </tr> -->
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <input type="button" value="提交" class="btn btn-primary size-S radius center_submit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+<script src="{$Think.const.ADMIN_URL}/js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript">
+function chanmoney(mon) {
+    var bl="{$user_info['one']}"
+    var txt = parseInt(mon / (bl*0.1));
+    var credits = $('#credits').val();
+    if (credits == '') {
+        alert('交易总额不能为空');
+        return;
+    }
+    if (!(checkNumber(credits))) {
+            alert('交易总额必须为数字');
+            return;
+        };
+    $('#money_con').html(txt);
+}
+$(function() {
+    $(".center_submit").click(function() {
+        var credits = $('#credits').val();
+        if (credits == '') {
+            alert('交易总额不能为空');
+            return;
+        }
+        if (!(checkNumber(credits))) {
+            alert('交易总额必须为数字');
+            return;
+        };
+        $('#form-product').submit();
+    })
+})
+
+function checkNumber(theObj) {
+    var reg = /^[0-9]+.?[0-9]*$/;
+    if (reg.test(theObj)) {
+        return true;
+    }
+    return false;
+}
+</script>
+
+</html>

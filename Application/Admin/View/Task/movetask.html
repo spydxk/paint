@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="{$Think.const.ADMIN_CSS_URL}/H-ui.admin.css" rel="stylesheet" type="text/css"/>
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.css" rel="stylesheet" type="text/css"/>
+    <link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css"/>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]--><title>列表</title>
+    <style>
+        #DataTables_Table_0_wrapper img {
+            height: 100px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .inp {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div style="font-size: 13px;margin: 10px 5px">
+    <form action="{:U('Task/movetaskdata')}" method="post"  id="form-product">
+        <table border="1" width="100%" class="table table-border table-bordered radius  table-hover">
+            <tr>
+                <td>原员工名称</td>
+                <td>
+                    {$name['name']}
+                    <input type="hidden" value="{$task_id|encoded}" name="task_id">
+                    <input type="hidden" value="{$name['id']|encoded}" name="pre_id">
+                </td>
+            </tr>
+            <tr>
+                <td>迁移到的员工名称</td>
+                <td>
+                    <select name="user_id" id="user_id">
+                        <option value="2">请选择员工</option>
+                        <?php foreach($data as $k=>$v):?>
+                        <option value="{$v['id']|encoded}">{$v['name']}</option>
+                        <?php endforeach?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" style="text-align: center;">
+                    <input type="button" value="提交" class="btn btn-primary size-S radius inp"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+<script src="{$Think.const.ADMIN_URL}/js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".inp").click(function () {
+            var user_id = $('#user_id').val();
+            if(user_id==2){
+                alert('请您选择要迁移到的员工名称');
+                exit();
+            }
+            $('#form-product').submit();
+        })
+    })
+</script>
+</html>

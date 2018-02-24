@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_CSS_URL}/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="{$Think.const.ADMIN_URL}/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<title>列表</title>
+<style>
+    #DataTables_Table_0_wrapper img{height: 100px;}
+    td{
+      text-align: center;
+    }
+</style>
+</head>
+<body>
+<nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>角色管理
+<a href="{:U('Role/addrole')}"><p  class="btn btn-primary radius" style="float: right;line-height:1.6em;margin-top:3px;margin-right: 4px">添加角色</p></a>
+<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="icon-refresh"></i></a></nav>
+        <div style="font-size: 13px; margin: 10px 5px;">
+
+    <table class="table table-border table-bordered radius table-hover"  width="100%">
+                <tbody><tr style="font-weight: bold;">
+                        <td>序号</td>
+                        <td>角色名称</td>
+                        <td align="center" colspan="2" style="text-align: center;">操作</td>
+                    </tr>
+                    <?php foreach ($da_role as $k => $v):?>
+                    <tr id="product1">
+                        <td>{$v['i_num']}</td>
+                        <td>{$v.role_name}</td>
+                        <td style="text-align: center;"><a href="<?php echo U('Role/distribute','role_id='.$v['role_id'])?>" class="btn btn-secondary radius">分配权限</a></td><td style="text-align: center;"><a href="<?php echo U('Role/delete','role_id='.$v['role_id'])?>" onclick="return confirm('确定要删除吗？')" class="btn btn-danger radius">删除角色</a></td>
+                    </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+</body>
+</html>

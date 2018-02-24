@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>金聚云</title>
+    <link href="{$Think.const.ADMIN_CSS_URL}/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/animate.min.css" rel="stylesheet">
+    <link href="{$Think.const.ADMIN_CSS_URL}/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="{$Think.const.HOME_CSS_URL}/common.css">
+<script type="text/javascript" href="{$Think.const.HOME_JS_URL}/fontSize.js"></script> 
+</head>
+
+<body >
+    <div class="head">
+    <div style="position: absolute;">
+    <?php if(!is_weixin()):?>
+    <a href="{:U('Login/outlogin')}" style="line-height: 35px;font-size: 14px;margin-left: 9px;color: #fff;float: left;width: 100%;background-color: #139332;border-radius: 6px;font-size: 13px;margin-top: 3px;line-height: 25px;height: 26px; color: #fff;text-align: center;vertical-align: middle;font-family: Microsoft YaHei;width: 62px;">切换账号</a>
+    <?php endif?>
+    </div>
+        <p style="float: left;width: 100%">
+            {$tittle}
+        </p>
+        <div style="float: right;position: absolute;right: 3px">
+
+            <!-- <a href="tel:15916537159"><img src="{$Think.const.HOME_URL}/images/13.png" style="width: 16px"></a> -->
+            <a href="tel:18923006442"><p style="float: left;
+    width: 100%;
+    background-color: #139332;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 3px;    line-height: 25px;
+    height: 26px;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    /* font-weight: bold; */
+    font-family: Microsoft YaHei;
+    width: 62px;">一键拨号</p></a>
+        </div>
+    </div>

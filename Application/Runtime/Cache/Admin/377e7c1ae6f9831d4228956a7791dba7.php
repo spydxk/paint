@@ -1,0 +1,177 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="<?php echo (ADMIN_CSS_URL); ?>/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo (ADMIN_CSS_URL); ?>/style.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo (ADMIN_URL); ?>/lib/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo (ADMIN_URL); ?>/lib/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo (ADMIN_URL); ?>/lib/icheck/icheck.css" />
+    <link href="<?php echo (ADMIN_URL); ?>/lib/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <title>列表</title>
+    <style>
+    #DataTables_Table_0_wrapper img {
+        height: 100px;
+    }
+
+    td {
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="iconfont">&#xf012b;</i> 首页 <span class="c-gray en">&gt;</span>用户列表
+        <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="icon-refresh"></i></a></nav>
+    <form action="<?php echo U('User/showlist');?>" method="get">
+        <table class="table table-border table-bordered radius table-hover">
+            <tr style="font-weight: bold;">
+                <div class="text-c" style="line-height: 50px">
+                    <td>日期范围：</td>
+                    <td>
+                        <input type="text"  onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})"  id="datemin" class="input-text Wdate" style="width:120px;" value="<?php echo ($get['datemin']); ?>" name="datemin"> -
+                        <input type="text"  onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})"  id="datemax" class="input-text Wdate" style="width:120px;" value="<?php echo ($get['datemax']); ?>" name="datemax">
+                    </td>
+                    <td>用户类别:</td>
+                    <td>
+                        <select class="select" name="category" class="select-box" style="width: 140px;height: 37px">
+                            <option value="0">请选择用户类别</option>
+                            <option value="1" <?php if($get[ 'category']==1):?>selected
+                                <?php endif?>>贵宾会员</option>
+                            <option value="2" <?php if($get[ 'category']==2):?>selected
+                                <?php endif?>>分销会员</option>
+                            <option value="3" <?php if($get[ 'category']==3):?>selected
+                                <?php endif?>>代销会员</option>
+                        </select>
+                    </td>
+                    <td>用户名称:</td>
+                    <td>
+                        <input type="text" class="input-text" style="width:250px" placeholder="请输入用户名称" name="name" value="<?php echo ($get['name']); ?>">
+                    </td>
+                     <td>用户手机号码:</td>
+                    <td>
+                        <input type="text" class="input-text" style="width:250px" placeholder="请输入用户手机号码" name="iphone" value="<?php echo ($get['iphone']); ?>">
+                    </td>
+                    <td>
+                        <input type="hidden" name="m">
+                        <input type="hidden" name="c">
+                        <input type="hidden" name="a">
+                        <input  type="submit" class="btn btn-success" value="搜索" />
+                    </td>
+                </div>
+        </table>
+    </form>
+    <div class="cl pd-5 bg-1 bk-gray mt-20" style="margin-top:0px"> <span class="l">
+    <!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> -->
+    </span> <span class="r">共有数据：<strong><?php echo ($num); ?></strong> 条</span>
+    </div>
+    <div style="font-size: 13px; margin: 10px 5px;">
+        <table class="table table-border table-bordered radius table-hover" width="100%">
+            <tr style="font-weight: bold;">
+<!--                 <th style="line-height: 30px;text-align: center;">
+                    <input type="checkbox" name="allid" id="allid" onclick="ondel();">
+                </th> -->
+                <th style="line-height: 30px;text-align: center;">序号</th>
+                <th style="line-height: 30px;text-align: center;">用户ID</th>
+                <th style="line-height: 30px;text-align: center;">用户名称</th>
+                <th style="line-height: 30px;text-align: center;">用户分类</th>
+                <th style="line-height: 30px;text-align: center;">用户头像</th>
+                <th style="line-height: 30px;text-align: center;">用户性别</th>
+                <th style="line-height: 30px;text-align: center;">用户手机号码</th>
+                <th style="line-height: 30px;text-align: center;">用户介绍人</th>
+                <th style="line-height: 30px;text-align: center;">用户介绍人ID</th>
+                <th style="line-height: 30px;text-align: center;">用户添加时间</th>
+                <th style="line-height: 30px;text-align: center;" colspan="3">操作</th>
+            </tr>
+            <?php nocache?>
+            <?php foreach($data as $v):?>
+            <tr style="background-color: #F6F6F6">
+   <!--              <td style="line-height: 30px;text-align: center;">
+                    <input type="checkbox" name="id[]" class="tid" value="<?php echo ($k); ?>">
+                </td> -->
+                <td style="line-height: 30px;text-align: center;"><?php echo ($v['i_num']); ?></td>
+                <td style="line-height: 30px;text-align: center;"><?php echo ($v['pid']); ?></td>
+                <td style="line-height: 30px;text-align: center;"><?php echo ($v['name']); ?></td>
+                <td style="line-height: 30px;text-align: center;">
+                    <?php if($v['category']==1):?>贵宾会员
+                    <?php elseif($v['category']==2):?>分销会员
+                    <?php elseif($v['category']==3):?>代销会员
+                    <?php endif?>
+                </td>
+                <td style="line-height: 30px;text-align: center;">
+                    <div style="width: 70px;text-align: center;margin: auto;"><img src="<?php echo ($v['headimg']); ?>" style="width: 100%;height: 100%"></div>
+                </td>
+                <td style="line-height: 30px;text-align: center;">
+                    <?php if($v['sex']==1):?>男
+                    <?php elseif($v['sex']==2):?>女
+                    <?php else:?>暂无性别
+                    <?php endif?>
+                </td>
+                <td style="line-height: 30px;text-align: center;"><?php echo ($v['iphone']); ?></td>
+                <td style="line-height: 30px;text-align: center;">
+                    <?php if(empty($v['introducer'])):?>无上级
+                    <?php else: echo ($v['introducer']); ?>
+                    <?php endif?>
+                </td>
+                <td style="line-height: 30px;text-align: center;">
+                    <?php if(empty($v['introducerpid'])):?>无上级
+                    <?php else: echo ($v['introducerpid']); ?>
+                    <?php endif?>
+                </td>
+                <td style="line-height: 30px;text-align: center;"><?php echo (date('Y-m-d h:i:s',$v['time'])); ?></td>
+                <td style="line-height: 30px;text-align: center;"><a onclick="layer_show('修改佣金比例','<?php echo U('User/update',array('id'=>encoded($v['id'])));?>','','')" href="javascript:" class="btn btn-secondary radius">修改佣金比例</a></td>
+                <td style="line-height: 30px;text-align: center;"><a onclick="layer_show('修改密码','<?php echo U('User/modifypassword',array('id'=>encoded($v['id'])));?>','','')" href="javascript:" class="btn btn-secondary radius">修改密码</a></td>
+                <td style="line-height: 30px;text-align: center;"><a href="<?php echo U('User/delete','id='.$v['id']);?>" onclick="return confirm('确定要删除吗？')" class="btn btn-danger radius">删除</a></td>
+            </tr>
+            <tr>
+                <td colspan="2">下级人数：<?php echo ($v['secondnum']); ?>人</td>
+                <td colspan="3">上级ID：
+                    <?php if(empty($v['secondpid'])):?>暂无上级　　　
+                    <?php else: echo ($v['secondpid']); ?>
+                    <?php endif?>
+                </td>
+                <td colspan="3">佣金比例　　 一级：二级：三级=　<?php echo ($v['one']); ?>　:　<?php echo ($v['second']); ?>　:　<?php echo ($v['third']); ?></td>
+                <td colspan="2">财务状况：<?php echo ($v['money_all']); ?>（元）</td>
+                <td>积分数额：<?php echo ($v['credits']); ?></td>
+                <td colspan="2">可提现金额：<?php echo ($v['money']); ?>（元）</td>
+            </tr>
+            <?php endforeach?>
+            <?php endnocache?>
+            <?php if(preg_match('/\d/', $page)): ?>
+            <tr>
+                <td align="right" nowrap="true" colspan="99" height="30">
+                    <?php echo $page; ?>
+                </td>
+            </tr>
+            <?php endif; ?>
+        </table>
+    </div>
+</body>
+<script type="text/javascript" src="<?php echo (ADMIN_URL); ?>/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo (ADMIN_URL); ?>/lib/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="<?php echo (ADMIN_URL); ?>/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="<?php echo (ADMIN_URL); ?>/lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<?php echo (ADMIN_URL); ?>/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo (ADMIN_URL); ?>/static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="<?php echo (ADMIN_URL); ?>/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript">
+function ondel() {
+    var controls = document.getElementsByClassName('tid');
+    if ($("#allid").is(':checked') == true) {
+        for (var i = 0; i < controls.length; i++) {
+            controls[i].checked = true; //}
+        }
+    } else {
+        for (var i = 0; i < controls.length; i++) {
+            controls[i].checked = false; //}
+        }
+    }
+}
+</script>
+
+</html>

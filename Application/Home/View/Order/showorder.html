@@ -1,0 +1,72 @@
+<include file="Public/head" />
+<div class="showorder_con">
+    <table class="table table-border table-bordered radius table-hover table_order">
+        <tr>
+            <th style="text-align: center;" colspan="7">销售/送货订单</th>
+        </tr>
+        <tr>
+            <td colspan="5" style="text-align: right;width: 70%;font-size: 11px;border-left: 0px;border-right: 0px;">日期：</td>
+            <td style="border-left: 0px;border-right: 0px;font-size: 7px;" colspan="2">{$order['addtime']}</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;font-size: 7px;" colspan='7' >地址：梅县区剑英大道锦绣国际B6栋203-205　　　电话：0753-2621518　　18923006442</td>
+        </tr>
+        <tr>
+            <td colspan="3" style="font-size: 8px;">客户名称：<span>{$order['gressname']}</span></td>
+            <td colspan="4" rowspan="2" style="font-size: 8px">地址:<span>{$order['order_address']}</span></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="font-size: 8px">联系电话：<span>{$order['order_iphone']}</span></td>
+        </tr>
+        <tr>
+            <td style="font-size: 9px">货品名称</td>
+            <td style="font-size: 9px">规格型号</td>
+            <td style="font-size: 9px">数量</td>
+            <td style="font-size: 9px">单位</td>
+            <td style="font-size: 9px">单价</td>
+            <td style="font-size: 9px">总金额</td>
+            <td style="font-size: 9px">备注</td>
+        </tr>
+        <?php foreach($goods as $k=>$v):?>
+        <tr>
+            <td style="font-size: 7px">{$v['goods_name']}</td>
+            <td style="font-size: 7px">{$v['goods_type']}</td>
+            <td style="font-size: 7px">{$v['goods_num']}</td>
+            <td style="font-size: 7px">{$v['goods_unit']}</td>
+            <td style="font-size: 7px">{$v['goods_price']}</td>
+            <td style="font-size: 7px">{$v['goods_all']}</td>
+            <td style="font-size: 7px">{$v['notes']}</td>
+        </tr>
+        <?php endforeach?>
+        <tr>
+            <td style="text-align: left;font-size: 7px" colspan="7">温馨提示：</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;font-size: 7px" colspan="7">1、本公司承诺销售的保证全为正品</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;font-size: 7px" colspan="7">2、收货前请认真检查货品包装是否完好，数量是否相符，签字确认后即视为对本批次货品无异议。
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: left;font-size: 7px" colspan="7">3、本单据与纸质单据一致，可用作结算依据。          
+
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 7px">开单人：<span>{$order['order_user']}</span></td>
+            <td colspan="3" style="font-size: 7px">送货人：<span>{$order['delivery_user']}</span></td>
+            <td colspan="3" style="font-size: 7px">收货人：<span>{$order['consignee']}</span></td>
+        </tr>
+        <?php if($order['order_status']==0):?>
+        <tr>
+            <td colspan="7" style="text-align: center;">
+                <a href="{:U('Order/doorder',array('order_id'=>encoded($order['order_id']),'category'=>encoded(1)))}" class="onorder">确定订单</a>
+                <a href="{:U('Order/doorder',array('order_id'=>encoded($order['order_id']),'category'=>encoded(2)))}" class="onorder" style="background-color: #ec5f00">取消订单</a>
+            </td>
+        </tr>
+    <?php endif?>
+    </table>
+        <div style="text-align: center;width: 100%">
+            <a href="{:U('Center/center')}" style="display: inline-block;width: 70px;height: 25px;line-height: 25px;background-color: #ff0505;color: #fff;text-align: center;border-radius: 4px;margin-bottom: 27px;">返回首页</a>
+</div>

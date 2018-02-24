@@ -1,0 +1,44 @@
+<include file="Public/head" />
+<div class="paint_bd" <?php if(!is_mobile()):?>style='width: 26%;margin: auto;' <?php endif?>>
+    <div class="paint_con">
+        <div class="center_list">
+            <p class="paint_tittle">我的佣金比例：</p>
+            <p class="paint_list_con">{$user_info['one']}(一级):{$user_info['second']}(二级):{$user_info['third']}(三级)</p>
+        </div>
+        <div class="center_list">
+            <p class="paint_tittle">我的推荐人：</p>
+            <p class="paint_list_con">{$user_info['introducername']}</p>
+        </div>
+        <div class="center_list">
+            <p class="paint_tittle">我的推荐人ID：</p>
+            <p class="paint_list_con">{$user_info['introducerpid']}</p>
+        </div>
+        <div class="center_list">
+            <p class="paint_tittle">累计介绍人数：</p>
+            <p class="paint_list_con">{$user_info['number']}人</p>
+        </div>
+        <div class="center_list">
+            <p class="paint_tittle">本年度累加积分：</p>
+            <p class="paint_list_con">
+                <?php if(empty($user_info['all'])):?>0
+                <?php else:?>{$user_info['all']}
+                <?php endif?>
+            </p>
+        </div>
+        <div class="paint_conlist">
+            <div class="paint_list"><i class="fa fa-list-alt index-user" style="font-size: 14px;float: left;"></i>
+                <a href="{:U('Order/showlist')}">
+                    <p class="paint_info">交易订单<i class="fa fa-angle-right index-user" style="font-size: 20px;float: right;"></i></p>
+                </a>
+            </div>
+        </div>
+        <?php if($user_info['category']==1):?>
+        <div class="index-sub">
+            <a href="{:U('Paint/changestatus')}" onclick="return confirm('确定要提交申请吗？')">
+                <input type="button" style="margin-top:35px" class="index-submit" value="申请分销">
+            </a>
+        </div>
+    <?php endif?>
+    </div>
+</div>
+<include file="Public/footer" />

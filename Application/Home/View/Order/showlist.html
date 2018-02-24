@@ -1,0 +1,31 @@
+<include file="Public/head" />
+<div class="listhead">
+    <a href="{:U('Order/moneylist')}" class="in_a">流水记录</a>
+    <a  class="on_a" style="color: #fff">订单记录</a>
+</div>
+<div class="mycenter_con" <?php if(!is_mobile()):?>style='width: 26%;margin: auto;' <?php endif?>>
+    <table class="table table-border table-bordered radius table-hover table_order">
+        <tr style="text-align: center;">
+            <th style="border-left: 0px;border-right: 0px;">序号</th>
+            <th style="border-left: 0px;border-right: 0px;">订单日期</th>
+            <th style="border-left: 0px;border-right: 0px;">订单状态</th>
+            <th style="border-left: 0px;border-right: 0px;">订单操作</th>
+        </tr>
+        <?php if(empty($data)):?>
+        <tr>
+        	<th style="text-align: center;" colspan="4">暂无订单</th>
+        </tr>
+    <?php else:?>
+    	<?php foreach($data as $k=>$v):?>
+            <tr>
+    		<td style="border-left: 0px;border-right: 0px;text-align: center;">{$v['i_num']}</td>
+    		<td style="border-left: 0px;border-right: 0px;">{$v['order_time']|date='Y-m-d',###}</td>
+    		<td style="border-left: 0px;border-right: 0px;"><?php if($v['order_status']==0):?><span>待审核</span><?php elseif($v['order_status']==1):?><span>已确定</span><?php elseif($v['order_status']==2):?><span>已退货</span><?php endif?></td>
+    		<td style="border-left: 0px;border-right: 0px;"><a href="{:U('Order/showorder','id='.encoded($v['order_id']))}" class="order_do">查看明细</a></td>
+            </tr>
+    	<?php endforeach?>
+    <?php endif?>
+    </table>
+        <div style="text-align: center;width: 100%">
+            <a href="{:U('Center/center')}" style="display: inline-block;width: 70px;height: 25px;line-height: 25px;background-color: #ff0505;color: #fff;text-align: center;border-radius: 4px;margin-bottom: 27px;">返回首页</a>
+</div>

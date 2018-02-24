@@ -1,0 +1,80 @@
+<include file="Public/head_login" />
+<div class="index_con" <?php if(!is_mobile()):?>style='width: 26%;margin: auto;' <?php endif?>>
+    <form action="{:U('Index/adduser')}" method="post" id="form-product">
+        <div class="index_list"><i class="fa fa-user index-user" style="font-size: 19px"> </i>
+            <input type="text" name="name" id="name" class="index-input" placeholder="请填写姓名（必填）">
+        </div>
+        <div class="index_list"><i class="fa fa-mobile index-user" style="font-size: 27px"> </i>
+            <input type="text" name="iphone" id="iphone" class="index-input" placeholder="请填写手机（必填）">
+        </div>
+        <div class="index_list"><i class="fa fa-circle-o-notch index-user" style="font-size: 16px"> </i>
+            <input type="text" name="introducer" id="introducer" class="index-input" placeholder="请填写推荐人ID（选填）" value="{$introducerpid}">
+        </div>
+        <div class="index_list"><i class="fa fa-home index-user" style="font-size: 16px"> </i>
+            <input type="text" name="address" id="address" class="index-input" placeholder="请填写地址（选填）">
+        </div>
+        <div class="index_list"><i class="fa fa-tasks index-user" style="font-size: 16px;float: left;"> </i>
+            <div class="index_input">
+                <select name="category" class="index_select" style="color: darkgrey" style="font-size: 16px">
+                    <option value="<?php echo encoded(0)?>">请选择用户类别</option>
+                    <option value="<?php echo encoded(1)?>">贵宾会员</option>
+                    <option value="<?php echo encoded(2)?>">我要分销</option>
+                    <option value="<?php echo encoded(3)?>">我要代销</option>
+                </select><span style="color: darkgrey"> （必填）</span>
+            </div>
+        </div>
+        <div class="index_list"><i class="fa fa-lock index-user" style="font-size: 27px"> </i>
+            <input type="password" name="password" id="password" class="index-input" placeholder="请填写6-8位数字或字母的密码">
+        </div>
+        <div class="index_list"><i class="fa fa-unlock-alt index-user" style="font-size: 27px"> </i>
+            <input type="password" name="repassword" id="repassword" class="index-input" placeholder="请再次填写密码">
+        </div>
+        <div style="text-align: right;margin-right: 27px;">
+            <a href="{:U('Login/login')}">已有账号，我要登录</a>
+        </div>
+        <div class="index-sub">
+            <input type="button" class="index-submit" value="提交">
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="{$Think.const.ADMIN_URL}/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    $(".index-submit").click(function() {
+        var name = $('#name').val();
+        var iphone = $('#iphone');
+        var password = $('#password').val();
+        var repassword = $('#repassword').val();
+        var index_select = $('.index_select').val();
+        if (name == '') {
+            alert('姓名不能为空');
+            exit();
+        } else if (iphone.value == '') {
+            alert('手机号码不能为空');
+            exit();
+        }
+        var myreg = /^1[3|4|5|7|8|][0-9]{8}[0-9]$/;
+        var pattern = /^[\w-\.]{6,8}$/;
+        if (!myreg.test($("#iphone").val())) {
+            alert('请输入有效的手机号码！');
+            exit();
+        }
+        if (!pattern.test($("#password").val())) {
+            alert('请填写6-8位数字或字母的密码!');
+            exit();
+        }
+        if (password != repassword) {
+            alert('两次输入密码不一致，请重新填写!');
+            exit();
+        }
+        if (index_select == 'aTowOw') {
+            alert('请选择用户类别!');
+            exit();
+        }
+        $('#form-product').submit();
+    })
+})
+</script>
+
+</html>
