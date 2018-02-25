@@ -10,7 +10,6 @@ class PubController extends Controller
     {
         header("Content-type: text/html; charset=utf-8");
         parent::__construct();
-
         if (is_weixin()) {
             $openid = I('session.openid');
             //openid为空
