@@ -1,15 +1,3 @@
-[ 2018-02-25T14:54:02+08:00 ] ::1 /paint/index_admin.php/AdminUsermanage/login.html
-ERR: 无法加载控制器:AdminUsermanage
-
-[ 2018-02-25T14:54:08+08:00 ] ::1 /paint/index_admin.php/Admin/Usermanage/login.html
-ERR: 无法加载控制器:Admin
-
-[ 2018-02-25T14:54:14+08:00 ] ::1 /paint/index_admin.php/Admin/Usermanage/login.html
-ERR: 无法加载控制器:Admin
-
-[ 2018-02-25T14:54:26+08:00 ] ::1 /paint/index_admin.php/Admin/Usermanage/login.html
-ERR: 无法加载控制器:Admin
-
-[ 2018-02-25T14:54:53+08:00 ] ::1 /paint/index_admin.php/Admin/Usermanage/login.html
-ERR: 无法加载控制器:Admin
+[ 2018-02-25T18:58:58+08:00 ] 183.8.43.243 /
+ERR: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
 
